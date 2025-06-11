@@ -1,5 +1,7 @@
-hyprland/
 out/
+./hyprland/
+./hyprland/HEAD
 .vscode/
 .envrc
 .direnv
+!./src/hyprland/

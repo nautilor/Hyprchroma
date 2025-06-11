@@ -1,10 +1,9 @@
 #pragma once
 
-#include <string>
 #include <format>
+#include <string>
 
 #include <hyprland/src/render/shaders/Textures.hpp>
-
 
 inline static const std::string DARK_MODE_FUNC = R"glsl(
 uniform bool doInvert;
@@ -40,7 +39,6 @@ void invert(inout vec4 color) {
     }
 }
 )glsl";
-
 
 inline const std::string TEXFRAGSRCRGBA_DARK = R"glsl(
 precision mediump float;
@@ -80,8 +78,7 @@ void main() {
     invert(pixColor);
 
     if (radius > 0.0) {
-    )glsl" +
-    ROUNDED_SHADER_FUNC("pixColor") + R"glsl(
+    )glsl" + ROUNDED_SHADER_FUNC("pixColor") + R"glsl(
     }
 
     gl_FragColor = pixColor * alpha;
@@ -122,8 +119,7 @@ void main() {
     invert(pixColor);
 
     if (radius > 0.0) {
-    )glsl" +
-    ROUNDED_SHADER_FUNC("pixColor") + R"glsl(
+    )glsl" + ROUNDED_SHADER_FUNC("pixColor") + R"glsl(
     }
 
     gl_FragColor = pixColor * alpha;
@@ -166,8 +162,7 @@ void main() {
     invert(pixColor);
 
     if (radius > 0.0) {
-    )glsl" +
-    ROUNDED_SHADER_FUNC("pixColor") + R"glsl(
+    )glsl" + ROUNDED_SHADER_FUNC("pixColor") + R"glsl(
     }
 
     gl_FragColor = pixColor * alpha;

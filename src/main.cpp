@@ -119,16 +119,20 @@ APICALL EXPORT PLUGIN_DESCRIPTION_INFO PLUGIN_INIT(HANDLE handle) {
                "cannot ignore Decorations");
     g_WindowInverter.NoIgnoreDecorations();
   }
-
-  HyprlandAPI::addDispatcher(
+  //  addDispatcherV2(HANDLE handle, const std::string& name,
+  //  std::function<SDispatchResult(std::string)> handler);
+  HyprlandAPI::addDispatcherV2(
       PHANDLE, "togglewindowchromakey", [&](std::string args) {
         std::lock_guard<std::mutex> lock(g_InverterMutex);
         g_WindowInverter.ToggleInvert(g_pCompositor->getWindowByRegex(args));
+        return SDispatchResult{};
       });
-  HyprlandAPI::addDispatcher(PHANDLE, "togglechromakey", [&](std::string args) {
-    std::lock_guard<std::mutex> lock(g_InverterMutex);
-    g_WindowInverter.ToggleInvert(g_pCompositor->m_lastWindow.lock());
-  });
+  HyprlandAPI::addDispatcherV2(
+      PHANDLE, "togglechromakey", [&](std::string args) {
+        std::lock_guard<std::mutex> lock(g_InverterMutex);
+        g_WindowInverter.ToggleInvert(g_pCompositor->m_lastWindow.lock());
+        return SDispatchResult{};
+      });
 
   return {"hyprchroma",
           "Applies ChromaKey algorithm to windows for transparency effect",

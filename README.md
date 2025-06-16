@@ -1,4 +1,4 @@
-# <span style="color:red">At the moment it compiles but does not load</span>
+# <span style="color:red">At the moment it compiles and load but nothing happens</span>
 
 # Hyprchroma
 

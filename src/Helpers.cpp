@@ -27,6 +27,9 @@ void ShaderHolder::Init() {
   RGBA_Invert = glGetUniformLocation(prog, "doInvert");
   BKGA = glGetUniformLocation(prog, "bkg");
 
+  //  throw std::runtime_error(std::string("Compiled shader: ") +
+  //  TEXFRAGSRCRGBA_DARK);
+
   prog = CreateProgram(TEXVERTSRC, TEXFRAGSRCRGBX_DARK);
   RGBX.program = prog;
   RGBX.tex = glGetUniformLocation(prog, "tex");
@@ -83,6 +86,9 @@ GLuint ShaderHolder::CompileShader(const GLuint &type, std::string src) {
 
   glShaderSource(shader, 1, (const GLchar **)&shaderSource, nullptr);
   glCompileShader(shader);
+  // throw std::runtime_error(std::string("compiling shader: ") + src);
+
+  Debug::log(LOG, "Compiling shader: {}", shaderSource);
 
   GLint ok;
   glGetShaderiv(shader, GL_COMPILE_STATUS, &ok);

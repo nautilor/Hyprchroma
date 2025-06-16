@@ -1,11 +1,12 @@
 #pragma once
 
-#include <string>
-#include <format>
 #include "SharedValues.hpp"
+#include <format>
+#include <string>
 
-inline static constexpr auto ROUNDED_SHADER_FUNC = [](const std::string colorVarName) -> std::string {
-    return R"#(
+inline static constexpr auto ROUNDED_SHADER_FUNC =
+    [](const std::string colorVarName) -> std::string {
+  return R"#(
 
     // shoutout me: I fixed this shader being a bit pixelated while watching hentai
 
@@ -14,10 +15,11 @@ inline static constexpr auto ROUNDED_SHADER_FUNC = [](const std::string colorVar
     pixCoord *= vec2(lessThan(pixCoord, vec2(0.0))) * -2.0 + 1.0;
     pixCoord -= fullSize * 0.5 - radius;
     pixCoord += vec2(1.0, 1.0) / fullSize; // center the pix dont make it top-left
+		float roundingPower = 8.0;
 
     // smoothing constant for the edge: more = blurrier, but smoother
     const float SMOOTHING_CONSTANT = )#" +
-        std::format("{:.7f}", SHADER_ROUNDED_SMOOTHING_FACTOR) + R"#(;
+         std::format("{:.7f}", SHADER_ROUNDED_SMOOTHING_FACTOR) + R"#(;
 
     if (pixCoord.x + pixCoord.y > radius) {
 
@@ -29,7 +31,7 @@ inline static constexpr auto ROUNDED_SHADER_FUNC = [](const std::string colorVar
         float normalized = 1.0 - smoothstep(0.0, 1.0, (dist - radius + SMOOTHING_CONSTANT) / (SMOOTHING_CONSTANT * 2.0));
 
 	      )#" +
-        colorVarName + R"#( = )#" + colorVarName + R"#( * normalized;
+         colorVarName + R"#( = )#" + colorVarName + R"#( * normalized;
     }
 )#";
 };
@@ -65,8 +67,8 @@ void main() {
     vec4 pixColor = v_color;
 
     if (radius > 0.0) {
-	)#" +
-    ROUNDED_SHADER_FUNC("pixColor") + R"#(
+	)#" + ROUNDED_SHADER_FUNC("pixColor") +
+                                       R"#(
     }
 
     gl_FragColor = pixColor;
@@ -133,8 +135,8 @@ void main() {
     }
 
     if (radius > 0.0) {
-    )#" +
-    ROUNDED_SHADER_FUNC("pixColor") + R"#(
+    )#" + ROUNDED_SHADER_FUNC("pixColor") +
+                                          R"#(
     }
 
     gl_FragColor = pixColor * alpha;
@@ -191,8 +193,8 @@ void main() {
     }
 
     if (radius > 0.0) {
-    )#" +
-    ROUNDED_SHADER_FUNC("pixColor") + R"#(
+    )#" + ROUNDED_SHADER_FUNC("pixColor") +
+                                          R"#(
     }
 
     gl_FragColor = pixColor * alpha;
@@ -465,8 +467,8 @@ void main() {
     }
 
     if (radius > 0.0) {
-    )#" +
-    ROUNDED_SHADER_FUNC("pixColor") + R"#(
+    )#" + ROUNDED_SHADER_FUNC("pixColor") +
+                                         R"#(
     }
 
     gl_FragColor = pixColor * alpha;

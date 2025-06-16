@@ -19,12 +19,6 @@ void WindowInverter::OnRenderWindowPre() {
                  window) != m_ManuallyInvertedWindows.end());
 
   if (shouldInvert) {
-    glUseProgram(m_Shaders.RGBA.program);
-    glUniform3f(m_Shaders.BKGA, bkgR, bkgG, bkgB);
-    glUseProgram(m_Shaders.RGBX.program);
-    glUniform3f(m_Shaders.BKGX, bkgR, bkgG, bkgB);
-    glUseProgram(m_Shaders.EXT.program);
-    glUniform3f(m_Shaders.BKGE, bkgR, bkgG, bkgB);
     std::swap(m_Shaders.EXT, g_pHyprOpenGL->m_shaders->m_shEXT);
     std::swap(m_Shaders.RGBA, g_pHyprOpenGL->m_shaders->m_shRGBA);
     std::swap(m_Shaders.RGBX, g_pHyprOpenGL->m_shaders->m_shRGBX);

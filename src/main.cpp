@@ -62,7 +62,7 @@ APICALL EXPORT PLUGIN_DESCRIPTION_INFO PLUGIN_INIT(HANDLE handle) {
         getline(ss, component, ',');
         GLfloat b = std::stof(component);
 
-        g_WindowInverter.SetBackground(r, g, b);
+        // g_WindowInverter.SetBackground(r, g, b);
 
         return Hyprlang::CParseResult(); // return a default CParseResult
       },
